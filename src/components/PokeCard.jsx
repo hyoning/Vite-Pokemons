@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react'
 import { useEffect, useState } from 'react'
-
+import LazyImage from './LazyImage'
 
 const PokeCard = ({url, name}) => {
  const [pokemon, setPokemon] = useState();
@@ -34,12 +34,8 @@ const PokeCard = ({url, name}) => {
   const bg = `bg-${pokemon?.type}`;
   const border = `border-${pokemon?.type}`;
   const text = `text-${pokemon?.type}`;
-
   const img = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon?.id}.png`;
 
-
-
-  console.log(pokemon);
   return (
     <>
       {pokemon &&
@@ -54,7 +50,10 @@ const PokeCard = ({url, name}) => {
           </div>
           <div className={`w-full f-6 flex items-center justify-center `}>
             <div className={`box-border relative flex w-full h-[5.5rem] basis justify-center items-center`}>
-              <img src={img} alt={name} width="100" className={`object-contain h-full`} />
+              <LazyImage 
+                url={img}
+                alt={name}
+              />
             </div>
           </div>
           <div className={`${bg} text-xs test-zinc-100 h-[1.5rem] rounded-b-lg uppercas font-medium pt-1`}>
