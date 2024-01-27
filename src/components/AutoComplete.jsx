@@ -6,6 +6,7 @@ function AutoComplete({allPokemons,setDispalyedPokemons}) {
   // 검색 State
   const [searchTerm, setSearchTerm] = useState("");
 
+  //검색버튼을 누를때
   const filterNames = (input) => {
     const value = input.toLowerCase();
     return value ?  allPokemons.filter((e) => e.name.includes(value)) : [];
@@ -18,6 +19,7 @@ function AutoComplete({allPokemons,setDispalyedPokemons}) {
     setSearchTerm("");
   }
 
+  //검색 autocomplete
   const checkEqualname = (input) => {
     const filteredArray = filterNames(input);
     return filteredArray[0]?.name === input ? [] : filteredArray;
