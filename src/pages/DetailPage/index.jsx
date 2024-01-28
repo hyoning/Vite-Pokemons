@@ -9,7 +9,7 @@ import { GreaterThan } from '../../assets/GreaterThan'
 import { ArrowLeft } from '../../assets/ArrowLeft'
 import { Balance } from '../../assets/Balance'
 import { Vector } from '../../assets/Vector'
-
+import Type from '../../components/Type'
 
 function DetailPage() {
   const [pokemon, setPokemon] = useState();
@@ -206,9 +206,20 @@ function DetailPage() {
             기본 능력치
           </h2>
           <div className='w-full'>
-
+                {pokemon.types.map((type) => (
+                  <Type key={type} type={type}/>
+                ))}
 
           </div>
+
+          {pokemon.DamageRelation && (
+            <div className='w-10/12'>
+              <h2 className={`text-base text-center font-semibold ${text}`}>
+                데미지 관계
+              </h2>
+              데미지
+            </div>
+          )}
         </section>
 
       </div>
