@@ -29,7 +29,9 @@ const PokeCard = ({url, name}) => {
       name,
       type: types[0].type.name
     }
+    
     return PokeDate;
+  
   }
 
   const bg = `bg-${pokemon?.type}`;
@@ -41,7 +43,7 @@ const PokeCard = ({url, name}) => {
     <>
       {pokemon &&
         <Link 
-        to={`/pokemon/&{name}`}
+        to={`/pokemon/${name}`}
         className={`box-border rounded-lg ${border} w-[8.5rem] h-[8.5rem] z-0 bg-slate-800 justify-between items-center`}
         >
           <div
@@ -57,7 +59,7 @@ const PokeCard = ({url, name}) => {
               />
             </div>
           </div>
-          <div className={`${bg} text-center ext-xs test-zinc-100 h-[1.5rem] rounded-b-lg uppercas font-medium pt-1`}>
+          <div className={`${bg} text-center ext-xs test-zinc-100 h-[1.5rem] rounded-b-lg uppercas font-medium`}>
             {pokemon.name}
           </div>
         </Link>
