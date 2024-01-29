@@ -10,6 +10,7 @@ import { ArrowLeft } from '../../assets/ArrowLeft'
 import { Balance } from '../../assets/Balance'
 import { Vector } from '../../assets/Vector'
 import Type from '../../components/Type'
+import BaseStat from '../../components/BaseStat'
 
 function DetailPage() {
   const [pokemon, setPokemon] = useState();
@@ -169,9 +170,12 @@ function DetailPage() {
 
         <section className='w-full min-h-[65%] h-full bg-gray-800 z-10 pt-14 flex flex-col items-center gap-3 px-5 pb-4'>
           <div className='flex items-center justify-center gap-4'>
+                {pokemon.types.map((type) => (
+                  <Type key={type} type={type}/>
+                ))}
 
           </div>
-          
+
           <h2 className={`text-base font-semibold ${text}`}>
             정보
           </h2>
@@ -206,11 +210,21 @@ function DetailPage() {
             기본 능력치
           </h2>
           <div className='w-full'>
-                {pokemon.types.map((type) => (
-                  <Type key={type} type={type}/>
+            <table>
+              <tbody>
+                {pokemon.stats.map((stat) => (
+                    <BaseStat
+                      key={stat.name}
+                      valueStat={stat.baseStat}
+                      nameStat={stat.name}
+                      type={pokemon.types[0]}
+                    />
                 ))}
-
+                
+              </tbody>
+            </table>  
           </div>
+        
 
           {pokemon.DamageRelation && (
             <div className='w-10/12'>
