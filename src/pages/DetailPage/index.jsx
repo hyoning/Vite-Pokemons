@@ -11,6 +11,7 @@ import { Balance } from '../../assets/Balance'
 import { Vector } from '../../assets/Vector'
 import Type from '../../components/Type'
 import BaseStat from '../../components/BaseStat'
+import DamageRelations from '../../components/DamageRelations'
 
 function DetailPage() {
   const [pokemon, setPokemon] = useState();
@@ -33,7 +34,7 @@ function DetailPage() {
         const {name, id, types, weight, height, stats, abilities } = pokemonData;
         const nextAndPreviousPokemon = await getNextAndPreviousPokemon(id);
 
-        const DamageRelation = await Promise.all(
+        const DamageRelations = await Promise.all(
           types.map(async (i) => {
             const type = await axios.get(i.type.url);
             return type.data.damage_relations
@@ -50,7 +51,7 @@ function DetailPage() {
           abilities : formatPokemonAbilities(abilities),
           stats : formatPokemonStats(stats),
           types : types.map(type => type.type.name),
-          DamageRelation
+          DamageRelations
         }
         setPokemon(formatterdPokemonData);
         setIsLoading(false);
@@ -62,14 +63,14 @@ function DetailPage() {
       setIsLoading(false);
     }
   }
-
+  //console.log(pokemon?.DamageRelations)
   const formatPokemonStats = ([
       statHP,
       statATK,
       statDEP,
       statSATK,
       statSDEP,
-      statSPD
+      statSPD 
     ]) => [
         {name: 'Hit Points', baseStat: statHP.base_stat},
         {name: 'Attack', baseStat: statATK.base_stat},
@@ -226,10 +227,11 @@ function DetailPage() {
           </div>
         
 
-          {pokemon.DamageRelation && (
+          {pokemon.DamageRelations && (
             <div className='w-10/12'>
               <h2 className={`text-base text-center font-semibold ${text}`}>
-                데미지 관계
+                <DamageRelations
+                  damages = {pokemon.DamageRelations}/>
               </h2>
               데미지
             </div>

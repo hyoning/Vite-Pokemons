@@ -12,6 +12,7 @@ const BaseStat = ({valueStat, nameStat, type}) => {
       const calc = valueStat * (100/255);
       setValueStat.style.width = calc + '%'
     }
+    
   )
 
   return (
