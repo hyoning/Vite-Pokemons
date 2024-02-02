@@ -17,6 +17,9 @@ function DetailPage() {
   const [pokemon, setPokemon] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+
   const params = useParams();
   const pokemonId = params.id;
   const baseUrl = `https://pokeapi.co/api/v2/pokemon/`
@@ -165,6 +168,7 @@ function DetailPage() {
               loading="lazy"
               alt={pokemon.name}
               className={`object-contain h-full`}
+              onClick={() => setIsModalOpen(true)}
               />
           </div>
         </section>
@@ -237,8 +241,14 @@ function DetailPage() {
             </div>
           )}
         </section>
-
-      </div>
+      </div>  
+        {isModalOpen &&
+          <DamageModal
+            setIsModalOpen={setIsModalOpen}
+            damages={pokemon.DamageRelations}
+          />}
+      
+      
     </article>
   )
 }
