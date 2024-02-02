@@ -1,8 +1,9 @@
-import React,{ useEffect } from 'react'
+import React,{ useEffect, useState } from 'react'
+import Type from '../components/Type'
 
 const DamageRelations = ({damages}) => {
 
-  const [damagePokemonForm, setDamagePokemonForm] = useState(second)
+  const [damagePokemonForm, setDamagePokemonForm] = useState()
 
   useEffect(() => {
    const arrayDamage = damages.map((damage) => 
@@ -11,9 +12,9 @@ const DamageRelations = ({damages}) => {
 
     if(arrayDamage.length === 2){
       const obj = joinDamageRelations(arrayDamage);
-      setDamagePokemonForm(reduceDuplicateValues(postDamageVaule(obj.from)));
+      setDamagePokemonForm(reduceDuplicateValues(postDamagevalue(obj.from)));
     } else{
-      setDamagePokemonForm(postDamageVaule(arrayDamage[0].from));
+      setDamagePokemonForm(postDamagevalue(arrayDamage[0].from));
     }
   }, [])
   
@@ -75,7 +76,7 @@ const DamageRelations = ({damages}) => {
 
 
   // 능력이 1개 일때 from 속성 불러오기
-  const postDamageVaule = (props) => {
+  const postDamagevalue = (props) => {
    const result = Object.entries(props)
           .reduce((acc, [keyName, value])=> {
 
@@ -104,7 +105,7 @@ const DamageRelations = ({damages}) => {
     return {from, to}
   }
 
-  // vaulefilter 속성 뒤에 from, to 값 없애기
+  // valuefilter 속성 뒤에 from, to 값 없애기
   const filterDamageRelations = (valueFilter, damage) =>{
     const result = Object.entries(damage)
     .filter(([keyName, value]) => {
@@ -123,7 +124,43 @@ const DamageRelations = ({damages}) => {
   }
 
   return (
-    <div>DamageRelations</div>
+    <div className='flex gap-2 flex-col'>
+      {damagePokemonForm ? (
+        <>
+          {Object.entries(damagePokemonForm)
+            .map(([keyName, value]) => {
+                const key = keyName;
+                const valuesOfKeyName = {
+                  double_damage: 'Weak',
+                  half_damage: 'Resistant',
+                  no_damage: 'Immune'
+                }
+                return(
+                 <div key={key}>
+                   <h3 className='capitalize font-medium text-sm md:text-base text-slate-500 text-center'>
+                    {valuesOfKeyName[key]}
+                   </h3>
+                   <div className='flex flex-wrap gap-1 justify-center'>
+                    {value.length > 0 ? (
+                      value.map(({name, url, damageValue}) => {
+                        return(
+                          <Type 
+                            type={name}
+                            key={url}
+                            damageValue={damageValue}
+                          />
+                        )})
+                      ) : (
+                        <Type type={'none'} key={'none'} />
+                      )}
+                   </div>
+                 </div> 
+                )
+            })}
+        </>
+      ): <div></div>
+    }
+    </div>
   )
 }
 
